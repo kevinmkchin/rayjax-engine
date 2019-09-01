@@ -20,7 +20,7 @@ public class Level {
     * every following string must be Sprite information*/
 
 
-    public Character[][] wallArray, floorArray, ceilingArray;
+    public Character[][] wallArray, floorArray, ceilArray;
     public ArrayList<Sprite> sprites;
     public int mapWidth;
     public int mapHeight;
@@ -37,7 +37,7 @@ public class Level {
             String data = reader.readLine();
             String[] dataArray = data.split("/");
 
-            if(dataArray.length < 3){
+            if(dataArray.length < 3){//TODO change 3 to 4 after implementing map info
                 throw new MapMissingDataException();
             }
             if(dataArray[0].length() / Math.sqrt(dataArray[0].length()) == dataArray[0].length()){
@@ -53,13 +53,12 @@ public class Level {
 
             wallArray = new Character[mapWidth][mapHeight];
             floorArray = new Character[mapWidth][mapHeight];
-            ceilingArray = new Character[mapWidth][mapHeight];
+            ceilArray = new Character[mapWidth][mapHeight];
             loadWalls(dataArray[0]);
             loadFloors(dataArray[1]);
             loadCeils(dataArray[2]);
 
-
-
+            //TODO deal w sprites here
 
         } catch (FileNotFoundException e) {
             System.out.println("Couldn't locate the map file.");
@@ -69,23 +68,24 @@ public class Level {
         }
     }
 
-    //TODO load into char[][] wallArray
     private void loadWalls(String wallData){
+        loadToArray(wallArray, wallData);
+    }
+
+    private void loadFloors(String floorData){
+        loadToArray(floorArray, floorData);
+    }
+
+    private void loadCeils(String ceilData){
+        loadToArray(ceilArray, ceilData);
+    }
+
+    private void loadToArray(Character[][] mapArray, String arrayData){
         for(int i=0; i<mapWidth; i++){
             for(int j=0; j<mapHeight; j++){
-                wallArray[j][i] = wallData.charAt(j*mapWidth + i);
+                mapArray[j][i] = arrayData.charAt(j*mapWidth + i);
             }
         }
-    }
-
-    //TODO load into char[][] floorArray
-    private void loadFloors(String floorData){
-
-    }
-
-    //TODO load into char[][] ceilArray
-    private void loadCeils(String ceilData){
-
     }
 
     //TODO load into ArrayList<Sprite> sprites
@@ -110,8 +110,8 @@ public class Level {
         return floorArray;
     }
 
-    public Character[][] getCeilingArray() {
-        return ceilingArray;
+    public Character[][] getCeilArray() {
+        return ceilArray;
     }
 
     public ArrayList<Sprite> getSprites() {

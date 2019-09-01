@@ -3,20 +3,25 @@ import java.util.HashMap;
 
 public class Screen {
 
-    public Character[][] map;
+    public Character[][] walls, floors, ceilings;
     public int width, height;
     private HashMap<Character,Texture> textures;
 
 
-    public Screen(Character[][] map, HashMap<Character,Texture> textures, int width, int height){
-        this.map = map;
+    public Screen(Character[][] walls,
+                  Character[][] floors,
+                  Character[][] ceilings,
+                  HashMap<Character,Texture> textures, int width, int height){
+        this.walls = walls;
+        this.floors = floors;
+        this.ceilings = ceilings;
         this.textures = textures;
         this.width = width;
         this.height = height;
     }
 
     public void setMap(Character[][] map) {
-        this.map = map;
+        this.walls = map;
     }
 
     private Color darken(Color c, double factor){
@@ -84,7 +89,7 @@ public class Screen {
                     else{ notThin = sideDistX < sideDistY - (deltaDistY / 2); }
 
                     //Horizontal thin wall check
-                    if(map[tileX][tileY] == "5".charAt(0)){
+                    if(walls[tileX][tileY] == "5".charAt(0)){
                         if(notThin){
                             side = 1;
                             thinTile = false;
@@ -108,7 +113,7 @@ public class Screen {
                     }
 
                     //Vertical thin wall check
-                    if(map[tileX][tileY] == "6".charAt(0)){
+                    if(walls[tileX][tileY] == "6".charAt(0)){
                         if(notThin){
                             side = 0;
                             thinTile = false;
@@ -124,10 +129,10 @@ public class Screen {
                 }
 
                 //find next tile to check
-                if(map[tileX][tileY] == "5".charAt(0) || map[tileX][tileY] == "6".charAt(0)){
+                if(walls[tileX][tileY] == "5".charAt(0) || walls[tileX][tileY] == "6".charAt(0)){
                     thinTile = true;
                     hit = false;
-                } else if(map[tileX][tileY] != "0".charAt(0)){
+                } else if(walls[tileX][tileY] != "0".charAt(0)){
                     hit = true;
                 }
             }
@@ -178,7 +183,7 @@ public class Screen {
             }
 
             //Add a texture//TODO deal with how to get textures from char
-            Character texKey = map[tileX][tileY]; //key for texture hash map
+            Character texKey = walls[tileX][tileY]; //key for texture hash map
 
             double xWithinTile = wallX - Math.floor(wallX);//if actual X is 4.68 then xWithinTile is 0.68
             //x coordinate on the texture
@@ -204,7 +209,7 @@ public class Screen {
 
 
             ///FLOOR & CEILING CASTING
-            double floorAtWallX, floorAtWallY; //x,y pos of floor pixel at wall bottom
+            double floorAtWallX, floorAtWallY;
             double distPlayer, currentDist;
 
             if(side == 0 && rayDirX > 0){
@@ -240,18 +245,25 @@ public class Screen {
                 double currentFloorX = weight * floorAtWallX + (1.0 - weight) * camera.xPos;
                 double currentFloorY = weight * floorAtWallY + (1.0 - weight) * camera.yPos;
 
+
+                int mapWidth = walls.length;
+                int cx = Math.max(0, Math.min(mapWidth-1, (int) currentFloorX));
+                int cy = Math.max(0, Math.min(mapWidth-1, (int) currentFloorY));
+                Texture floorTex = textures.get(floors[cx][cy]);
+                Texture ceilTex = textures.get(ceilings[cx][cy]);
+                int tileSize = floorTex.SIZE;
+
                 int floorTextureX, floorTextureY;
-                //TODO change "textures.get(3).SIZE" to proper way of getting floor&ceiling textures
-                floorTextureX = (int) (currentFloorX * textures.get("3".charAt(0)).SIZE) % textures.get("3".charAt(0)).SIZE;
-                floorTextureY = (int) (currentFloorY * textures.get("4".charAt(0)).SIZE) % textures.get("4".charAt(0)).SIZE;
+                floorTextureX = (int) (currentFloorX * tileSize) % tileSize;
+                floorTextureY = (int) (currentFloorY * tileSize) % tileSize;
 
                 //floor
                 double floorsLightFactor = Math.min(1, Math.pow(3/currentDist, 2));
-                Color c = new Color(textures.get("3".charAt(0)).pixels[Math.abs(textures.get("3".charAt(0)).SIZE * floorTextureY + floorTextureX)]);
+                Color c = new Color(floorTex.pixels[Math.abs(tileSize * floorTextureY + floorTextureX)]);
                 pixels[y*width + x] = darken(c, floorsLightFactor).getRGB();
 
                 //ceiling
-                c = new Color(textures.get("5".charAt(0)).pixels[Math.abs(textures.get("4".charAt(0)).SIZE * floorTextureY + floorTextureX)]);
+                c = new Color(ceilTex.pixels[Math.abs(tileSize * floorTextureY + floorTextureX)]);
                 pixels[(height-y)*width + x] = darken(c, floorsLightFactor).getRGB();
             }
 

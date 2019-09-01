@@ -23,34 +23,27 @@ public class Main extends JFrame implements Runnable {
     public Camera camera;
     public Screen screen;
 
+    public Character[][] walls, floors, ceilings;
 
-    public Character[][] map;// = {
-//            {1,1,1,1,1,1,1,1,2,2,2,2,2,2,2},
-//            {1,0,0,0,0,0,0,0,2,0,0,0,0,0,2},
-//            {1,0,3,3,5,3,3,0,0,0,0,0,0,0,2},
-//            {1,0,3,0,0,0,3,0,2,0,0,0,0,0,2},
-//            {1,0,3,0,0,0,6,0,2,2,2,0,2,2,2},
-//            {1,0,3,0,0,0,3,0,2,0,0,0,0,0,2},
-//            {1,0,3,3,0,3,3,0,2,0,0,0,0,0,2},
-//            {1,0,0,0,0,0,0,0,2,0,0,0,0,0,2},
-//            {1,1,1,1,1,1,1,1,4,4,4,0,4,4,4},
-//            {1,0,0,0,0,0,1,4,0,0,0,0,0,0,4},
-//            {1,0,0,0,0,0,1,4,0,0,0,0,0,0,4},
-//            {1,0,0,2,0,0,1,4,0,3,3,3,3,0,4},
-//            {1,0,0,0,0,0,1,4,0,3,3,3,3,0,4},
-//            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-//            {1,1,1,1,1,1,1,4,4,4,4,4,4,4,4}
-//    };
 
     public Main(){
         thread = new Thread(this);
         image = new BufferedImage(renderWidth, renderHeight, BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
-        camera = new Camera(4.5, 4.5, 1, 0, 0, -0.84); //TODO play with yp for diff fov
+        camera = new Camera(4.5, 4.5, 1, 0, 0, -1); //TODO play with yp for diff fov
         //if direction vector is same length as plane vector, then FOV is 90 degrees.
         addKeyListener(camera);
         addMouseMotionListener(camera);
+
+        try {
+            Level level1 = new Level("map1.rajmap");
+            walls = level1.getWallArray();
+            floors = level1.getFloorArray();
+            ceilings = level1.getCeilArray();
+        } catch (MapBadDataException e) {
+            e.printStackTrace();
+        }
 
         textures = new HashMap<>();
 
@@ -60,15 +53,10 @@ public class Main extends JFrame implements Runnable {
         textures.put("4".charAt(0), Texture.bluestone);
         textures.put("5".charAt(0), Texture.brick);
         textures.put("6".charAt(0), Texture.brick);
+        textures.put("a".charAt(0), Texture.wood);
 
-        try {
-            Level level1 = new Level("map1.rajmap");
-            map = level1.getWallArray();
-        } catch (MapBadDataException e) {
-            e.printStackTrace();
-        }
 
-        screen = new Screen(map, textures, renderWidth, renderHeight);
+        screen = new Screen(walls, floors, ceilings, textures, renderWidth, renderHeight);
 
         Toolkit tk= getToolkit();
         Cursor transparent = tk.createCustomCursor(tk.getImage(""), new Point(), "trans");
@@ -128,7 +116,7 @@ public class Main extends JFrame implements Runnable {
      * Handles all logic that occur at every tick.*/
     private void tick(){
         screen.update(camera, pixels);
-        camera.update(map);
+        camera.update(walls);
     }
 
     public void render(){
