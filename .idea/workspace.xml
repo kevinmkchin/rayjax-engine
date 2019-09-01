@@ -133,6 +133,9 @@
       <replace>Level.OPEN_SPACE</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -156,6 +159,7 @@
     <option name="width" value="1750" />
     <option name="height" value="980" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -245,12 +249,12 @@
       <workItem from="1567292138073" duration="17059000" />
       <workItem from="1567312765504" duration="16065000" />
       <workItem from="1567330545068" duration="47000" />
-      <workItem from="1567330678202" duration="861000" />
+      <workItem from="1567330678202" duration="1485000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96698000" />
+    <option name="totallyTimeSpent" value="97322000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
