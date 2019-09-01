@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="raycasting-project:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/raycasting_project_jar</output-path>
+    <root id="archive" name="raycasting-project.jar">
+      <element id="module-output" name="rayjax-engine" />
+    </root>
+  </artifact>
+</component>
