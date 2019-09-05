@@ -18,6 +18,14 @@ public class EditorPanel extends JPanel {
         this.editorW = editorW;
     }
 
+
+    public void drawTile(String character, int x, int y){
+        int i = x / tileSize;
+        int j = (y / tileSize) - 1;
+        arrayForDisplay[j][i] = character.charAt(0);
+    }
+
+
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -56,7 +64,9 @@ public class EditorPanel extends JPanel {
             case "6":
                 return Texture.brick.getImage();
             case "a":
-                return Texture.wood.getImage();
+                return Texture.stone.getImage();
+            case "b":
+                return Texture.bluestone.getImage();
             default:
                 return null;
         }

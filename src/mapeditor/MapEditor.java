@@ -5,9 +5,7 @@ import exception.MapBadDataException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -15,7 +13,7 @@ import java.io.IOException;
 
 import static java.awt.Font.PLAIN;
 
-public class MapEditor extends JFrame implements ActionListener {
+public class MapEditor extends JFrame implements ActionListener, MouseMotionListener, MouseListener {
 
 
     private Level level;
@@ -36,8 +34,10 @@ public class MapEditor extends JFrame implements ActionListener {
     private JMenuItem newFile, saveFile, loadFile;
     private JFileChooser fc = new JFileChooser();
 
+    private String[] characters;
+    private JList charList;
     private EditorPanel editorPanel;
-    private JPanel toolPanel, bottomPanel, zoomPanel;
+    private JPanel toolPanel, bottomPanel, zoomPanel, texturePanel;
     private JLabel tpLabel;
     ButtonGroup editorSelect, zoomSelect;
     private JRadioButton wallEdit, floorEdit, ceilEdit, zoom1, zoom2, zoom3, zoom4, nozoom;
@@ -58,6 +58,8 @@ public class MapEditor extends JFrame implements ActionListener {
         zoomPanel = new JPanel();
         zoomPanel.setBackground(bgColor);
         zoomPanel.setLayout(new GridLayout(3, 2));
+        texturePanel = new JPanel();
+        texturePanel.setBackground(bgColor);
 
 
         wallEdit = new JRadioButton("Edit WALLS", true);
@@ -131,6 +133,8 @@ public class MapEditor extends JFrame implements ActionListener {
         toolPanel.add(tpLabel, BorderLayout.PAGE_START);
         toolPanel.add(zoomPanel, BorderLayout.PAGE_END);
 
+        toolPanel.add(texturePanel, BorderLayout.CENTER);
+
         this.add(editorPanel);
         this.add(toolPanel);
         this.add(bottomPanel);
@@ -150,6 +154,28 @@ public class MapEditor extends JFrame implements ActionListener {
         fileMenu.add(saveFile);
         fileMenu.add(loadFile);
         menuBar.add(fileMenu);
+
+
+        //TODO add a button to change texture for the selection character
+        characters = new String[20];
+        charList = new JList(characters);
+        charList.setFont(font1);
+        charList.setSelectedIndex(0);
+        charList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        texturePanel.add(charList, BorderLayout.PAGE_START);
+        characters[0] = "a";
+        characters[1] = "b";
+        characters[2] = "c";
+        characters[3] = "d";
+        characters[4] = "e";
+        characters[5] = "f";
+        characters[6] = "g";
+        characters[7] = "h";
+        characters[8] = "i";
+        characters[9] = "j";
+
+        addMouseListener(this);
+        addMouseMotionListener(this);
 
 
         //JFRAME
@@ -332,4 +358,43 @@ public class MapEditor extends JFrame implements ActionListener {
         return string;
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("mouse down");
+        String c = (String) charList.getSelectedValue();
+        editorPanel.drawTile(c, e.getX(), e.getY());
+        update();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        String c = (String) charList.getSelectedValue();
+        editorPanel.drawTile(c, e.getX(), e.getY());
+        update();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 }
