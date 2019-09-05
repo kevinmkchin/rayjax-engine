@@ -1,3 +1,7 @@
+package engine;
+
+import entity.Camera;
+
 import java.awt.*;
 import java.util.HashMap;
 
@@ -5,13 +9,13 @@ public class Screen {
 
     public Character[][] walls, floors, ceilings;
     public int width, height;
-    private HashMap<Character,Texture> textures;
+    private HashMap<Character, Texture> textures;
 
 
     public Screen(Character[][] walls,
                   Character[][] floors,
                   Character[][] ceilings,
-                  HashMap<Character,Texture> textures, int width, int height){
+                  HashMap<Character, Texture> textures, int width, int height){
         this.walls = walls;
         this.floors = floors;
         this.ceilings = ceilings;

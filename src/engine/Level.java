@@ -1,12 +1,12 @@
+package engine;
+
+import entity.Sprite;
 import exception.MapArraysNotSameSizeException;
 import exception.MapBadDataException;
 import exception.MapMissingDataException;
 import exception.NotSquareMapException;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Level {
@@ -17,7 +17,7 @@ public class Level {
     * second string of characters must be floorTileMap
     * third string of characters must be ceilTileMap
     * fourth string of characters must be map information
-    * every following string must be Sprite information*/
+    * every following string must be entity.Sprite information*/
 
 
     public Character[][] wallArray, floorArray, ceilArray;
@@ -26,14 +26,18 @@ public class Level {
     public int mapHeight;
     public static final String OPEN_SPACE = "0";
 
-
-    public Level(String fileName) throws MapBadDataException{
-        loadMap(fileName);
+    public Level(File file) throws MapBadDataException{
+        loadMap(file);
     }
 
-    private void loadMap(String fileName) throws MapBadDataException {
+    public Level(String fileName) throws MapBadDataException{
+        File file = new File("res/map/" + fileName);
+        loadMap(file);
+    }
+
+    private void loadMap(File file) throws MapBadDataException {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("res/map/" + fileName));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String data = reader.readLine();
             String[] dataArray = data.split("/");
 
@@ -88,7 +92,7 @@ public class Level {
         }
     }
 
-    //TODO load into ArrayList<Sprite> sprites
+    //TODO load into ArrayList<entity.Sprite> sprites
     private void loadSprites(){
 
     }
@@ -116,5 +120,21 @@ public class Level {
 
     public ArrayList<Sprite> getSprites() {
         return sprites;
+    }
+
+    public void setWallArray(Character[][] wallArray) {
+        this.wallArray = wallArray;
+    }
+
+    public void setFloorArray(Character[][] floorArray) {
+        this.floorArray = floorArray;
+    }
+
+    public void setCeilArray(Character[][] ceilArray) {
+        this.ceilArray = ceilArray;
+    }
+
+    public void setSprites(ArrayList<Sprite> sprites) {
+        this.sprites = sprites;
     }
 }

@@ -1,3 +1,7 @@
+import engine.Level;
+import engine.Screen;
+import engine.Texture;
+import entity.Camera;
 import exception.MapBadDataException;
 
 import javax.swing.*;
@@ -10,8 +14,8 @@ import java.util.HashMap;
 public class Main extends JFrame implements Runnable {
 
     private static final long serialVersionUID = 1L;
-    public int renderWidth = 320; //render resolution
-    public int renderHeight = 180;
+    public int renderWidth = 640; //render resolution
+    public int renderHeight = 360;
     public int screenWidth = 1280; //display resolution
     public int screenHeight = 720;
     public final int FPS = 60;

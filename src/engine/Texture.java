@@ -1,3 +1,5 @@
+package engine;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,9 +14,10 @@ public class Texture {
     public static Texture stone = new Texture("res/texture/greystone.png", 64);
 
 
+    public final int SIZE;
     public int[] pixels;
     private String loc;
-    public final int SIZE;
+    private BufferedImage image;
 
 
     public Texture(String location, int size){
@@ -26,7 +29,7 @@ public class Texture {
 
     private void load(){
         try {
-            BufferedImage image = ImageIO.read(new File(loc));
+            image = ImageIO.read(new File(loc));
             int w = image.getWidth();
             int h = image.getHeight();
             image.getRGB(0,0,w,h,pixels,0,w);
@@ -35,7 +38,9 @@ public class Texture {
         }
     }
 
-
+    public BufferedImage getImage(){
+        return image;
+    }
 
 
 }
