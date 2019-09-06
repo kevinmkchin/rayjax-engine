@@ -33,6 +33,7 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
     private JMenu fileMenu;
     private JMenuItem newFile, saveFile, loadFile;
     private JFileChooser fc = new JFileChooser();
+    private int menuBarHeight = 25;
 
     private String[] characters;
     private JList charList;
@@ -141,6 +142,7 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
 
         //=== MENU BAR ===
         menuBar = new JMenuBar();
+        menuBar.setPreferredSize(new Dimension(winW, menuBarHeight));
         fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
         fileMenu.getAccessibleContext().setAccessibleDescription("File menu");
@@ -177,13 +179,15 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         addMouseListener(this);
         addMouseMotionListener(this);
 
+        newFile(30,30); //By default, start a new map
+        update();
 
         //JFRAME
         this.setJMenuBar(menuBar);
         this.setLayout(null);
         this.setSize(winW, winH);
         this.setResizable(false);
-        this.setTitle("rAyjax Map Editor");
+        this.setTitle("Rayjax Map Editor");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -252,8 +256,16 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
 
 
         if(e.getSource() == newFile){
-            //create new file
-            System.out.println("creating a new file");
+            String width = JOptionPane.showInputDialog(this,
+                    "Enter the width of the new map",
+                    "New Map (width)", JOptionPane.PLAIN_MESSAGE);
+            int w = Integer.parseInt(width);
+            String height = JOptionPane.showInputDialog(this,
+                    "Enter the height of the new map",
+                    "New Map (height)", JOptionPane.PLAIN_MESSAGE);
+            int h = Integer.parseInt(height);
+
+            newFile(w, h);
         }
         if(e.getSource() == saveFile){
             saveFile();
@@ -288,6 +300,12 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         //loads textures from res/texture/
     }
 
+    //new empty level
+    private void newFile(int w, int h){
+        level = new Level(w, h);
+    }
+
+
     //sets level
     private void loadFile(){
         int returnVal = fc.showOpenDialog(MapEditor.this);
@@ -295,8 +313,8 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
             File file = fc.getSelectedFile();
 
             String extension = getExtension(file);
-            if(!extension.equals("rajmap")){
-                JOptionPane.showMessageDialog(this, "File isn't a .rajmap");
+            if(!extension.equals("raymap")){
+                JOptionPane.showMessageDialog(this, "File isn't a .raymap");
                 return;
             }
 
@@ -334,7 +352,7 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         mapData += "/";
         mapData = writeFromArray(mapData, ceilArrayToSave);
 
-        fc.setDialogTitle("Save rajmap as...");
+        fc.setDialogTitle("Save raymap as... (extension must be .raymap");
         int userSelection = fc.showSaveDialog(this);
         if(userSelection == JFileChooser.APPROVE_OPTION){
             File fileToSave = fc.getSelectedFile();
@@ -365,9 +383,8 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("mouse down");
         String c = (String) charList.getSelectedValue();
-        editorPanel.drawTile(c, e.getX(), e.getY());
+        editorPanel.drawTile(c, e.getX(), e.getY() - menuBarHeight - this.getInsets().top);
         update();
     }
 
@@ -389,7 +406,7 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
     @Override
     public void mouseDragged(MouseEvent e) {
         String c = (String) charList.getSelectedValue();
-        editorPanel.drawTile(c, e.getX(), e.getY());
+        editorPanel.drawTile(c, e.getX(), e.getY() - menuBarHeight - this.getInsets().top);
         update();
     }
 

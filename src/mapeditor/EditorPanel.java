@@ -21,7 +21,7 @@ public class EditorPanel extends JPanel {
 
     public void drawTile(String character, int x, int y){
         int i = x / tileSize;
-        int j = (y / tileSize) - 1;
+        int j = y / tileSize;
         arrayForDisplay[j][i] = character.charAt(0);
     }
 
@@ -35,13 +35,9 @@ public class EditorPanel extends JPanel {
             int mapW = level.getMapWidth();
             int mapH = level.getMapHeight();
 
-            tileSize = editorW / mapW; //rounds down cuz integer
-            //for zoom, just double tileSize
-
             for(int i=0; i<mapW; i++){
                 for(int j=0; j<mapH; j++){
                     BufferedImage img = getImageFromCharacter(arrayForDisplay[i][j]);
-                    //System.out.println(img);
                     g.drawImage(img, j*tileSize, i*tileSize, tileSize, tileSize, null);
                 }
             }
@@ -78,6 +74,8 @@ public class EditorPanel extends JPanel {
 
     public void setLevel(Level level) {
         this.level = level;
+        tileSize = editorW / level.getMapWidth(); //rounds down cuz integer
+        //for zoom, just double tileSize
     }
 
     public Character[][] getArrayForDisplay() {

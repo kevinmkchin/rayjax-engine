@@ -133,10 +133,11 @@ public class Screen {
                 }
 
                 //find next tile to check
-                if(walls[tileX][tileY] == "5".charAt(0) || walls[tileX][tileY] == "6".charAt(0)){
+                if(walls[tileX][tileY] == Level.HOR_THIN_WALL.charAt(0)
+                        || walls[tileX][tileY] == Level.VER_THIN_WALL.charAt(0)){
                     thinTile = true;
                     hit = false;
-                } else if(walls[tileX][tileY] != "0".charAt(0)){
+                } else if(walls[tileX][tileY] != Level.OPEN_SPACE.charAt(0)){
                     hit = true;
                 }
             }
@@ -186,7 +187,7 @@ public class Screen {
                 }
             }
 
-            //Add a texture//TODO deal with how to get textures from char
+            //Add a texture
             Character texKey = walls[tileX][tileY]; //key for texture hash map
 
             double xWithinTile = wallX - Math.floor(wallX);//if actual X is 4.68 then xWithinTile is 0.68
@@ -267,8 +268,10 @@ public class Screen {
                 pixels[y*width + x] = darken(c, floorsLightFactor).getRGB();
 
                 //ceiling
-                c = new Color(ceilTex.pixels[Math.abs(tileSize * floorTextureY + floorTextureX)]);
-                pixels[(height-y)*width + x] = darken(c, floorsLightFactor).getRGB();
+                if(ceilings[cx][cy] != Level.OPEN_SPACE.charAt(0)){
+                    c = new Color(ceilTex.pixels[Math.abs(tileSize * floorTextureY + floorTextureX)]);
+                    pixels[(height-y)*width + x] = darken(c, floorsLightFactor).getRGB();
+                }
             }
 
 
@@ -277,33 +280,5 @@ public class Screen {
         return pixels;
 
     }
-
-    /*    private void initializeLightFactors(){
-        for(int i=0; i<200; i++){ //d<20 is max distance
-            double d = i/10.0;
-            if(d<3){
-                factors.put(d, 1.0);
-            }else if(d<4){
-                factors.put(d, 0.8);
-            }else if(d<4.8){
-                factors.put(d, 0.7);
-            }else if(d<5.5){
-                factors.put(d, 0.6);
-            }else if(d<6){
-                factors.put(d, 0.5);
-            }else if(d<6.4){
-                factors.put(d, 0.37);
-            }else if(d<6.7){
-                factors.put(d, 0.20);
-            }else{
-                factors.put(d, 0.0);
-            }
-        }
-    }
-
-    private double findLightFactor(double distance){
-        distance = Math.floor(distance * 10) / 10;
-        return factors.get(distance);
-    }*/
 
 }

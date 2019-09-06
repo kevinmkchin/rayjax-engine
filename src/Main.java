@@ -35,13 +35,14 @@ public class Main extends JFrame implements Runnable {
         image = new BufferedImage(renderWidth, renderHeight, BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
+        //TODO get camera starting x and y from level data
         camera = new Camera(4.5, 4.5, 1, 0, 0, -1); //TODO play with yp for diff fov
         //if direction vector is same length as plane vector, then FOV is 90 degrees.
         addKeyListener(camera);
         addMouseMotionListener(camera);
 
         try {
-            Level level1 = new Level("map1.rajmap");
+            Level level1 = new Level("test.raymap");
             walls = level1.getWallArray();
             floors = level1.getFloorArray();
             ceilings = level1.getCeilArray();
@@ -55,9 +56,10 @@ public class Main extends JFrame implements Runnable {
         textures.put("2".charAt(0), Texture.wood);
         textures.put("3".charAt(0), Texture.brick);
         textures.put("4".charAt(0), Texture.bluestone);
-        textures.put("5".charAt(0), Texture.brick);
-        textures.put("6".charAt(0), Texture.brick);
-        textures.put("a".charAt(0), Texture.wood);
+        textures.put(Level.HOR_THIN_WALL.charAt(0), Texture.brick);
+        textures.put(Level.VER_THIN_WALL.charAt(0), Texture.brick);
+        textures.put("a".charAt(0), Texture.stone);
+        textures.put("b".charAt(0), Texture.bluestone);
 
 
         screen = new Screen(walls, floors, ceilings, textures, renderWidth, renderHeight);

@@ -24,7 +24,26 @@ public class Level {
     public ArrayList<Sprite> sprites;
     public int mapWidth;
     public int mapHeight;
-    public static final String OPEN_SPACE = "0";
+    public static final String OPEN_SPACE = "0"; //same for walls, floors, ceilings
+    public static final String HOR_THIN_WALL = "5";
+    public static final String VER_THIN_WALL = "6";
+
+    public Level(int w, int h){
+        mapWidth = w;
+        mapHeight = h;
+
+        wallArray = new Character[mapWidth][mapHeight];
+        floorArray = new Character[mapWidth][mapHeight];
+        ceilArray = new Character[mapWidth][mapHeight];
+
+        for(int i=0; i<w; i++){
+            for(int j=0; j<h; j++){
+                wallArray[i][j] = OPEN_SPACE.charAt(0);
+                floorArray[i][j] = OPEN_SPACE.charAt(0);
+                ceilArray[i][j] = OPEN_SPACE.charAt(0);
+            }
+        }
+    }
 
     public Level(File file) throws MapBadDataException{
         loadMap(file);
