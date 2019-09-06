@@ -43,6 +43,7 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
     private JLabel tpLabel;
     ButtonGroup editorSelect, zoomSelect;
     private JRadioButton wallEdit, floorEdit, ceilEdit, zoom1, zoom2, zoom3, zoom4, nozoom;
+    private JButton fillScreenButton;
     public boolean wallEditing, floorEditing, ceilEditing, zoomed1, zoomed2, zoomed3, zoomed4, notzoomed;
 
     class TextureEntry {
@@ -106,8 +107,9 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         masterCharacterMap.put(Level.HOR_THIN_WALL, Texture.bluestone);
         masterCharacterMap.put(Level.VER_THIN_WALL, Texture.bluestone);
         masterCharacterMap.put("a", Texture.stone);
-        masterCharacterMap.put("b", Texture.bluestone);
-        masterCharacterMap.put("c", Texture.wood);
+        masterCharacterMap.put("b", Texture.wood);
+        masterCharacterMap.put("c", Texture.brick);
+        masterCharacterMap.put("d", Texture.bluestone);
     }
 
 // ================================================================
@@ -237,7 +239,11 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         charList = new JList(textureEntries);
         charList.setFont(font1);
         charList.setSelectedIndex(0);
-        texturePanel.add(charList, BorderLayout.PAGE_START);
+        texturePanel.add(charList);
+
+        fillScreenButton = new JButton("Fill Map with Texture");
+        fillScreenButton.addActionListener(this);
+        texturePanel.add(fillScreenButton);
 
     }
 
@@ -245,8 +251,28 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         new MapEditor();
     }
 
+    private void fillScreenWithCharacter(String c){
+        for(int i=0; i<editorPanel.getLevel().getMapWidth(); i++){
+            for(int j=0; j<editorPanel.getLevel().getMapHeight(); j++){
+                if(wallEditing) {
+                    editorPanel.getLevel().getWallArray()[i][j] = c.charAt(0);
+                }else if(floorEditing){
+                    editorPanel.getLevel().getFloorArray()[i][j] = c.charAt(0);
+                }else if(ceilEditing){
+                    editorPanel.getLevel().getCeilArray()[i][j] = c.charAt(0);
+                }
+            }
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == fillScreenButton){
+            TextureEntry selectedEntry = (TextureEntry) charList.getSelectedValue();
+            String c = selectedEntry.getCharacter();
+            fillScreenWithCharacter(c);
+        }
+
         //sets wallEditing, floorEditing, ceilEditing true or false
         if(e.getSource() == wallEdit){
             wallEditing = true;
@@ -300,7 +326,6 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
             zoomed4 = false;
             notzoomed = true;
         }
-
 
         if(e.getSource() == newFile){
             String width = JOptionPane.showInputDialog(this,
