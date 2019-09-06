@@ -8,15 +8,15 @@
   <component name="ChangeListManager">
     <list default="true" id="4cc8dd5b-97d4-487c-8fad-e59c004ed4fe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/rayjax-engine/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rayjax-engine/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/rayjax-engine/engine/Level.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rayjax-engine/engine/Level.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/rayjax-engine/engine/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rayjax-engine/engine/Screen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/rayjax-engine/engine/Texture.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rayjax-engine/engine/Texture.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/rayjax-engine/mapeditor/EditorPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rayjax-engine/mapeditor/EditorPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/rayjax-engine/mapeditor/MapEditor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rayjax-engine/mapeditor/MapEditor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/map1.rajmap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/map2.rajmap" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Texture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Texture.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mapeditor/EditorPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mapeditor/EditorPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mapeditor/MapEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mapeditor/MapEditor.java" afterDir="false" />
     </list>
@@ -45,59 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/engine/Level.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1602">
-              <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/engine/Screen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="136" column="70" selection-start-line="136" selection-start-column="50" selection-end-line="136" selection-end-column="70" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#darken#0;class#Screen#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mapeditor/EditorPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="7" column="36" lean-forward="true" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#342#343#0" expanded="true" />
-                <element signature="e#380#381#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mapeditor/MapEditor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="348" column="59" lean-forward="true" selection-start-line="348" selection-start-column="59" selection-end-line="348" selection-end-column="59" />
+            <state relative-caret-position="440">
+              <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -128,6 +77,7 @@
       <find>eplab</find>
       <find>array</find>
       <find>&quot;0&quot;</find>
+      <find>masterCharacterMap</find>
     </findStrings>
     <replaceStrings>
       <replace>Level.OPEN_SPACE</replace>
@@ -154,14 +104,15 @@
         <option value="$PROJECT_DIR$/src/mapeditor/Editor.java" />
         <option value="$PROJECT_DIR$/src/Editor.form" />
         <option value="$PROJECT_DIR$/src/Editor.java" />
-        <option value="$PROJECT_DIR$/src/engine/Texture.java" />
         <option value="$PROJECT_DIR$/src/engine/Char.java" />
-        <option value="$PROJECT_DIR$/src/mapeditor/EditorPanel.java" />
         <option value="$PROJECT_DIR$/res/map/map1.rajmap" />
         <option value="$PROJECT_DIR$/src/engine/Level.java" />
         <option value="$PROJECT_DIR$/src/engine/Screen.java" />
-        <option value="$PROJECT_DIR$/src/mapeditor/MapEditor.java" />
+        <option value="$PROJECT_DIR$/src/mapeditor/EditorPanel.java" />
+        <option value="$PROJECT_DIR$/src/engine/Texture.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/mapeditor/MapEditor.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -178,6 +129,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -189,18 +141,6 @@
               <item name="rayjax-engine" type="b2602c69:ProjectViewProjectNode" />
               <item name="rayjax-engine" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rayjax-engine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rayjax-engine" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="map" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rayjax-engine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rayjax-engine" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="texture" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rayjax-engine" type="b2602c69:ProjectViewProjectNode" />
@@ -223,12 +163,6 @@
               <item name="rayjax-engine" type="b2602c69:ProjectViewProjectNode" />
               <item name="rayjax-engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="exception" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rayjax-engine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rayjax-engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="mapeditor" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -236,7 +170,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -348,12 +281,13 @@
       <workItem from="1567640746209" duration="14358000" />
       <workItem from="1567669874636" duration="4233000" />
       <workItem from="1567704287404" duration="995000" />
-      <workItem from="1567711810651" duration="6789000" />
+      <workItem from="1567711810651" duration="9959000" />
+      <workItem from="1567788936746" duration="7119000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144221000" />
+    <option name="totallyTimeSpent" value="154510000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -368,7 +302,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18389262" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18657719" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="Designer" order="3" />
@@ -575,23 +509,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/map/map2.rajmap">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="47" selection-start-column="47" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/Texture.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="758">
-          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/res/map/map2.rajmap" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/javax/swing/JList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
@@ -606,68 +524,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/map/drole.rajmap">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/map/map1.rajmap">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="469" selection-start-column="469" selection-end-column="469" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/res/map/drole.rajmap" />
+    <entry file="file://$PROJECT_DIR$/res/map/map1.rajmap" />
     <entry file="file://$PROJECT_DIR$/res/map/map1.raymap">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/Level.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1602">
-          <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/Screen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="136" column="70" selection-start-line="136" selection-start-column="50" selection-end-line="136" selection-end-column="70" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#darken#0;class#Screen#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mapeditor/EditorPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="36" lean-forward="true" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#342#343#0" expanded="true" />
-            <element signature="e#380#381#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/map/test.raymap">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/map/test">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mapeditor/MapEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="348" column="59" lean-forward="true" selection-start-line="348" selection-start-column="59" selection-end-line="348" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/res/map/test" />
     <entry file="file://$PROJECT_DIR$/src/entity/Camera.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1201">
@@ -681,10 +546,94 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Screen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="46" column="33" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#darken#0;class#Screen#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="452" column="18" selection-start-line="452" selection-start-column="18" selection-end-line="452" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mapeditor/EditorPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1512#1513#0" expanded="true" />
+            <element signature="e#1791#1792#0" expanded="true" />
+            <element signature="e#1914#1915#0" expanded="true" />
+            <element signature="e#1977#1978#0" expanded="true" />
+            <element signature="e#2062#2063#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/awt/Window.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="1145" column="16" selection-start-line="1145" selection-start-column="16" selection-end-line="1145" selection-end-column="16" />
+          <folding>
+            <element signature="e#40240#40241#0" expanded="true" />
+            <element signature="e#40267#40268#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Level.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="80">
+            <caret line="4" column="182" selection-start-line="4" selection-start-column="182" selection-end-line="4" selection-end-column="182" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Texture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mapeditor/MapEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="99" column="30" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="37" column="58" selection-start-line="37" selection-start-column="58" selection-end-line="37" selection-end-column="58" />
+        <state relative-caret-position="440">
+          <caret line="63" column="9" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

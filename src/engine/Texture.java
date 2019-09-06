@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Texture {
 
-
+    //Make all textures here?
     public static Texture wood = new Texture("res/texture/wood.png", 64);
     public static Texture brick = new Texture("res/texture/redbrick.png", 64);
     public static Texture bluestone = new Texture("res/texture/bluestone.png", 64);
@@ -18,6 +18,7 @@ public class Texture {
     public int[] pixels;
     private String loc;
     private BufferedImage image;
+    private String textureName;
 
 
     public Texture(String location, int size){
@@ -29,10 +30,12 @@ public class Texture {
 
     private void load(){
         try {
-            image = ImageIO.read(new File(loc));
+            File f = new File(loc);
+            image = ImageIO.read(f);
             int w = image.getWidth();
             int h = image.getHeight();
             image.getRGB(0,0,w,h,pixels,0,w);
+            textureName = f.getName();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,5 +45,8 @@ public class Texture {
         return image;
     }
 
-
+    @Override
+    public String toString() {
+        return textureName;
+    }
 }

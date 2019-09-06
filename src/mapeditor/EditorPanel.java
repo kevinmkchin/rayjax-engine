@@ -10,21 +10,22 @@ import java.awt.image.BufferedImage;
 public class EditorPanel extends JPanel {
 
     private Level level;
-    private int editorW;
     private Character[][] arrayForDisplay;
+    private int editorW;
     private int tileSize;
+    MapEditor frame;
 
-    public EditorPanel(int editorW){
+    public EditorPanel(int editorW, MapEditor god){
         this.editorW = editorW;
+        frame = god;
     }
 
-
+    //replaces the clicked tile with the selected character
     public void drawTile(String character, int x, int y){
         int i = x / tileSize;
         int j = y / tileSize;
         arrayForDisplay[j][i] = character.charAt(0);
     }
-
 
     @Override
     public void paintComponent(Graphics g){
@@ -37,35 +38,17 @@ public class EditorPanel extends JPanel {
 
             for(int i=0; i<mapW; i++){
                 for(int j=0; j<mapH; j++){
-                    BufferedImage img = getImageFromCharacter(arrayForDisplay[i][j]);
-                    g.drawImage(img, j*tileSize, i*tileSize, tileSize, tileSize, null);
+                    String currentCharacter = arrayForDisplay[i][j].toString();
+                    Texture matchingTexture = frame.getMasterCharacterMap().get(currentCharacter);
+                    if(matchingTexture == null){ continue; }
+
+                    BufferedImage image = matchingTexture.getImage();
+
+                    g.drawImage(image, j*tileSize, i*tileSize, tileSize, tileSize, null);
                 }
             }
         }
 
-    }
-
-    private BufferedImage getImageFromCharacter(Character c){
-        switch(c.toString()){
-            case "1":
-                return Texture.stone.getImage();
-            case "2":
-                return Texture.wood.getImage();
-            case "3":
-                return Texture.brick.getImage();
-            case "4":
-                return Texture.bluestone.getImage();
-            case "5":
-                return Texture.brick.getImage();
-            case "6":
-                return Texture.brick.getImage();
-            case "a":
-                return Texture.stone.getImage();
-            case "b":
-                return Texture.bluestone.getImage();
-            default:
-                return null;
-        }
     }
 
     public Level getLevel() {

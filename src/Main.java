@@ -3,6 +3,7 @@ import engine.Screen;
 import engine.Texture;
 import entity.Camera;
 import exception.MapBadDataException;
+import mapeditor.MapEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,16 +51,21 @@ public class Main extends JFrame implements Runnable {
             e.printStackTrace();
         }
 
-        textures = new HashMap<>();
+        //get charMap<String, Texture> from MapEditor JFrame then dispose it
+        MapEditor tempMapEditor = new MapEditor();
+        HashMap<String, Texture> charMapFromEditor = tempMapEditor.getMasterCharacterMap();
+        tempMapEditor.setVisible(false);
+        tempMapEditor.dispose();
 
+        //create a new HashMap, replacing the String key with respective Character from String
+        textures = new HashMap<>();
+        for(HashMap.Entry<String, Texture> entry : charMapFromEditor.entrySet()){
+            textures.put(entry.getKey().charAt(0), entry.getValue());
+        }
         textures.put("1".charAt(0), Texture.stone);
         textures.put("2".charAt(0), Texture.wood);
         textures.put("3".charAt(0), Texture.brick);
         textures.put("4".charAt(0), Texture.bluestone);
-        textures.put(Level.HOR_THIN_WALL.charAt(0), Texture.brick);
-        textures.put(Level.VER_THIN_WALL.charAt(0), Texture.brick);
-        textures.put("a".charAt(0), Texture.stone);
-        textures.put("b".charAt(0), Texture.bluestone);
 
 
         screen = new Screen(walls, floors, ceilings, textures, renderWidth, renderHeight);

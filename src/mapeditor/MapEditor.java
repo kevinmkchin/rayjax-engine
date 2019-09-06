@@ -1,6 +1,7 @@
 package mapeditor;
 
 import engine.Level;
+import engine.Texture;
 import exception.MapBadDataException;
 
 import javax.swing.*;
@@ -10,6 +11,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Vector;
 
 import static java.awt.Font.PLAIN;
 
@@ -17,13 +20,11 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
 
 
     private Level level;
-    //private Character[][] arrayForDisplay;
 
     public int winW = 1600;
     public int winH = 900;
     public int editorW = 800;
     public int editorH = 800;
-
 
     public Color bgColor = Color.DARK_GRAY;
     public Color textColor = Color.WHITE;
@@ -35,34 +36,105 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
     private JFileChooser fc = new JFileChooser();
     private int menuBarHeight = 25;
 
-    private String[] characters;
+    private HashMap<String, Texture> masterCharacterMap;
     private JList charList;
     private EditorPanel editorPanel;
     private JPanel toolPanel, bottomPanel, zoomPanel, texturePanel;
     private JLabel tpLabel;
     ButtonGroup editorSelect, zoomSelect;
     private JRadioButton wallEdit, floorEdit, ceilEdit, zoom1, zoom2, zoom3, zoom4, nozoom;
-    public boolean wallEditing, floorEditing, ceilEditing, zoomed1, zoomed2, zoomed3, zoomed4, notzoomed = false;
+    public boolean wallEditing, floorEditing, ceilEditing, zoomed1, zoomed2, zoomed3, zoomed4, notzoomed;
 
+    class TextureEntry {
+        private String character;
+        private Texture texture;
+
+        TextureEntry(String c, Texture t){
+            character = c;
+            texture = t;
+        }
+
+        public String getCharacter() {
+            return character;
+        }
+
+        public Texture getTexture() {
+            return texture;
+        }
+
+        @Override
+        public String toString() {
+            if(texture == null){
+                return "Texture: " + character + " | " + "empty";
+            }else {
+                return "Texture: " + character + " | " + texture.toString();
+            }
+        }
+    }
 
     public MapEditor(){
 
-        editorPanel = new EditorPanel(editorW);
+        makeMasterCharacterMap();
+
+        initializeGUI();
+
+        addMouseListener(this);
+        addMouseMotionListener(this);
+
+        newFile(30,30); //By default, start a new map
+        update();
+
+        this.setJMenuBar(menuBar);
+        this.setLayout(null);
+        this.setSize(winW, winH);
+        this.setResizable(false);
+        this.setTitle("Rayjax Map Editor");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+
+    }
+
+// ================================================================
+
+    /** ALL TILE CHARACTER & TEXTURE DATA GO HERE
+     *  creates a HashMap with tile character as key
+     *  and corresponding Texture object as value.*/
+    private void makeMasterCharacterMap(){
+        masterCharacterMap = new HashMap<>();
+        masterCharacterMap.put(Level.OPEN_SPACE, null);
+        masterCharacterMap.put(Level.HOR_THIN_WALL, Texture.bluestone);
+        masterCharacterMap.put(Level.VER_THIN_WALL, Texture.bluestone);
+        masterCharacterMap.put("a", Texture.stone);
+        masterCharacterMap.put("b", Texture.bluestone);
+        masterCharacterMap.put("c", Texture.wood);
+    }
+
+// ================================================================
+
+    private void initializeGUI(){
+
+        // === Panels ===
+        editorPanel = new EditorPanel(editorW, this);
         editorPanel.setSize(editorW,editorH);
+
         toolPanel = new JPanel();
+        toolPanel.setBackground(bgColor);
         toolPanel.setLayout(new BorderLayout());
         toolPanel.setBounds(editorW,0,winW-editorW,editorH);
-        toolPanel.setBackground(bgColor);
+
         bottomPanel = new JPanel();
-        bottomPanel.setBounds(0,editorH,winW,winH);
         bottomPanel.setBackground(bgColor);
+        bottomPanel.setBounds(0,editorH,winW,winH);
+
         zoomPanel = new JPanel();
         zoomPanel.setBackground(bgColor);
         zoomPanel.setLayout(new GridLayout(3, 2));
+
         texturePanel = new JPanel();
         texturePanel.setBackground(bgColor);
 
-
+        // === Radio Buttons ===
         wallEdit = new JRadioButton("Edit WALLS", true);
         wallEditing = true;
         floorEdit = new JRadioButton("Edit FLOORS", false);
@@ -157,40 +229,15 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         fileMenu.add(loadFile);
         menuBar.add(fileMenu);
 
-
-        //TODO add a button to change texture for the selection character
-        characters = new String[20];
-        charList = new JList(characters);
+        //Texture/Character selector List
+        Vector<TextureEntry> textureEntries = new Vector<>();
+        for(HashMap.Entry<String, Texture> entry : masterCharacterMap.entrySet()){
+            textureEntries.add(new TextureEntry(entry.getKey(), entry.getValue()));
+        }
+        charList = new JList(textureEntries);
         charList.setFont(font1);
         charList.setSelectedIndex(0);
-        charList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         texturePanel.add(charList, BorderLayout.PAGE_START);
-        characters[0] = "a";
-        characters[1] = "b";
-        characters[2] = "c";
-        characters[3] = "d";
-        characters[4] = "e";
-        characters[5] = "f";
-        characters[6] = "g";
-        characters[7] = "h";
-        characters[8] = "i";
-        characters[9] = "j";
-
-        addMouseListener(this);
-        addMouseMotionListener(this);
-
-        newFile(30,30); //By default, start a new map
-        update();
-
-        //JFRAME
-        this.setJMenuBar(menuBar);
-        this.setLayout(null);
-        this.setSize(winW, winH);
-        this.setResizable(false);
-        this.setTitle("Rayjax Map Editor");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
 
     }
 
@@ -305,7 +352,6 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         level = new Level(w, h);
     }
 
-
     //sets level
     private void loadFile(){
         int returnVal = fc.showOpenDialog(MapEditor.this);
@@ -366,7 +412,6 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         }
 
     }
-
     private String writeFromArray(String string, Character[][] array){
         for(int i=0; i<editorPanel.getLevel().getMapWidth(); i++){
             for(int j=0; j<editorPanel.getLevel().getMapHeight(); j++){
@@ -376,16 +421,26 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
         return string;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
+    private void drawTileAtMouse(MouseEvent e){
+        TextureEntry selectedEntry = (TextureEntry) charList.getSelectedValue();
+        String c = selectedEntry.getCharacter();
+        editorPanel.drawTile(c, e.getX(), e.getY() - menuBarHeight - this.getInsets().top);
+        update();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        String c = (String) charList.getSelectedValue();
-        editorPanel.drawTile(c, e.getX(), e.getY() - menuBarHeight - this.getInsets().top);
-        update();
+        drawTileAtMouse(e);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        drawTileAtMouse(e);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
     }
 
     @Override
@@ -404,14 +459,11 @@ public class MapEditor extends JFrame implements ActionListener, MouseMotionList
     }
 
     @Override
-    public void mouseDragged(MouseEvent e) {
-        String c = (String) charList.getSelectedValue();
-        editorPanel.drawTile(c, e.getX(), e.getY() - menuBarHeight - this.getInsets().top);
-        update();
-    }
-
-    @Override
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    public HashMap<String, Texture> getMasterCharacterMap() {
+        return masterCharacterMap;
     }
 }

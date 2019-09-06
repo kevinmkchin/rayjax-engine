@@ -43,8 +43,8 @@ public class Screen {
 
     public int[] update(Camera camera, int[] pixels){
 
-        for(int i=0; i<320*90; i++){
-            pixels[i] = Color.BLUE.getRGB();
+        for(int i=0; i<640*180; i++){
+            pixels[i] = Color.RED.getRGB();
         }
 
         for(int x=0; x<width; x++) {
